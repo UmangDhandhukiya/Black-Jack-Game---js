@@ -1,0 +1,53 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.Main{
+    height: 100vh;
+    width: 100vw;
+    background-image: url(https://t3.ftcdn.net/jpg/01/59/07/92/360_F_159079250_3oo6EuNF6gPjNe3ABeDhMjzzEDlGVdjO.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: end;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    gap: 32px;
+}
+
+h1{
+    color: white;
+    font-weight: 400;
+    padding: 12px;
+}
+
+input{
+    width: 230px;
+    font-size: 18px;    
+    padding: 6px 14px;
+    border-radius: 6px;    
+}
+
+a{
+    text-decoration: none;
+    font-size: 24px;
+    color: white;
+    background-color: rgb(241, 55, 55);
+    padding: 4px 44px;
+    border-radius: 6px;
+}
+
+@media only screen and (max-width: 840px) {
+    .Main{
+        background-position: center;
+        justify-content: center;
+    }
+}
