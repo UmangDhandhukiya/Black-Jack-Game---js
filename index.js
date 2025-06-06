@@ -1,5 +1,7 @@
 let userPoint = 0;
 let dealerPoint = 0;
+let aceCountDealer = 0;
+let aceCountUser = 0;
 document.getElementById("user").innerHTML = localStorage.getItem("user");
 
 function onHandle(event) {
@@ -34,7 +36,7 @@ function cardValue(card) {
 async function drawCard(count) {
   // const deckId = await shuffle();
   const data = await fetch(
-    `https://www.deckofcardsapi.com/api/deck/zez02teaavdp/draw/?count=${count}`
+    `https://www.deckofcardsapi.com/api/deck/rpula2ooddn7/draw/?count=${count}`
   );
   const json = await data.json();
   console.log(json);
@@ -53,7 +55,9 @@ async function defaultDraw() {
       const img = document.createElement("img");
       img.src = card?.image;
       dealer.appendChild(img);
+      if (card.value === "ACE") return aceCountDealer++;
       dealerPoint += cardValue(card);
+      adjustDealerAce();
       document.getElementById(
         "dealerPoints"
       ).innerHTML = `Points : ${dealerPoint}`;
@@ -62,6 +66,7 @@ async function defaultDraw() {
       const img = document.createElement("img");
       img.src = card?.image;
       User.appendChild(img);
+      // if (card.value === "ACE") return aceCountUser++;
       userPoint += cardValue(card);
       document.getElementById("points").innerHTML = `Points : ${userPoint}`;
     }
@@ -77,6 +82,7 @@ async function drawNewCard() {
     const img = document.createElement("img");
     img.src = card?.image;
     User.appendChild(img);
+    // if (card.value === "ACE") return aceCountUser++;
     userPoint += cardValue(card);
     document.getElementById("points").innerHTML = `Points : ${userPoint}`;
   });
@@ -93,14 +99,17 @@ async function standUser() {
       const img = document.createElement("img");
       img.src = card?.image;
       dealer.appendChild(img);
+      if (card.value === "ACE") return aceCountDealer++;
+      adjustDealerAce();
       dealerPoint += cardValue(card);
       document.getElementById(
         "dealerPoints"
       ).innerHTML = `Points : ${dealerPoint}`;
     });
     standUser();
+  } else {
+    userWins();
   }
-  userWins();
 }
 
 function userWins() {
@@ -124,4 +133,13 @@ function userWins() {
   }
 }
 
-function toggleAce() {}
+function adjustDealerAce() {
+  while (dealerPoint > 21 && aceCountDealer > 0) {
+    dealerPoint -= 10;
+    aceCountDealer--;
+  }
+}
+
+function toggleAce() {
+  
+}
