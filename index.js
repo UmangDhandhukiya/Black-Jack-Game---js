@@ -16,6 +16,13 @@ function onHandle(event) {
   }
 }
 
+function cardValue(card) {
+  if (card.value === "ACE") return 11;
+  if (card.value === "JACK" || card.value === "QUEEN" || card.value === "KING")
+    return 10;
+  return parseInt(card.value);
+}
+
 // async function shuffle() {
 //   const data = await fetch(
 //     "https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6"
@@ -26,24 +33,14 @@ function onHandle(event) {
 //   return deckId;
 // }
 
-function cardValue(card) {
-  if (card.value === "ACE") return 11;
-  if (card.value === "JACK" || card.value === "QUEEN" || card.value === "KING")
-    return 10;
-  return parseInt(card.value);
-}
-
 async function drawCard(count) {
   // const deckId = await shuffle();
   const data = await fetch(
-    `https://www.deckofcardsapi.com/api/deck/rpula2ooddn7/draw/?count=${count}`
+    `https://www.deckofcardsapi.com/api/deck/new/draw/?count=${count}`
   );
   const json = await data.json();
   console.log(json);
   return json;
-
-  // const image = document.getElementById("dealerCard");
-  // image.src = json?.cards[0]?.image
 }
 
 async function defaultDraw() {
@@ -58,10 +55,10 @@ async function defaultDraw() {
       if (card.value === "ACE") return aceCountDealer++;
       dealerPoint += cardValue(card);
       adjustDealerAce();
-      document.getElementById(
-        "dealerPoints"
-      ).innerHTML = `Points : ${dealerPoint}`;
-    } else {
+      document.getElementById("dealerPoints").innerHTML = `Points : ${dealerPoint}`;
+    } 
+    
+    else {
       const User = document.getElementById("userCard");
       const img = document.createElement("img");
       img.src = card?.image;
@@ -86,6 +83,15 @@ async function drawNewCard() {
     userPoint += cardValue(card);
     document.getElementById("points").innerHTML = `Points : ${userPoint}`;
   });
+  
+  if (userPoint > 21) {
+    const user = localStorage.getItem("user");
+    const msg = `${user} Bust!`;
+    document.getElementById("winner").innerHTML = msg;
+    setTimeout(() => {
+      restartGame();
+    }, 5000);
+  }
 }
 
 async function standUser() {
@@ -131,6 +137,9 @@ function userWins() {
     const msg = "Dealer Bust, Player Win! ";
     document.getElementById("winner").innerHTML = msg;
   }
+
+  document.getElementById("buttons").style.display = "none";
+  document.getElementById("restart").style.display = "block";
 }
 
 function adjustDealerAce() {
@@ -140,6 +149,8 @@ function adjustDealerAce() {
   }
 }
 
-function toggleAce() {
-  
+function toggleAce() {}
+
+function restartGame() {
+  location.reload();
 }

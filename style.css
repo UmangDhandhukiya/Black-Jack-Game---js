@@ -109,6 +109,9 @@ img {
   border-radius: 20px;
 }
 
+#restart{
+  display: none;
+}
 
 @media only screen and (max-width: 840px) {
   .Main {
