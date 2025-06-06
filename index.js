@@ -14,15 +14,15 @@ function onHandle(event) {
   }
 }
 
-async function shuffle() {
-  const data = await fetch(
-    "https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6"
-  );
-  const json = await data.json();
-  console.log(json);
-  const deckId = json?.deck_id;
-  return deckId;
-}
+// async function shuffle() {
+//   const data = await fetch(
+//     "https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6"
+//   );
+//   const json = await data.json();
+//   console.log(json);
+//   const deckId = json?.deck_id;
+//   return deckId;
+// }
 
 function cardValue(card) {
   if (card.value === "ACE") return 11;
@@ -32,9 +32,9 @@ function cardValue(card) {
 }
 
 async function drawCard(count) {
-  const deckId = await shuffle();
+  // const deckId = await shuffle();
   const data = await fetch(
-    `https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=${count}`
+    `https://www.deckofcardsapi.com/api/deck/zez02teaavdp/draw/?count=${count}`
   );
   const json = await data.json();
   console.log(json);
@@ -80,22 +80,26 @@ async function drawNewCard() {
     userPoint += cardValue(card);
     document.getElementById("points").innerHTML = `Points : ${userPoint}`;
   });
-  userWins();
 }
 
-async function stayUser() {
+async function standUser() {
   const data = await drawCard(1);
+  const backCard = document.getElementById("backCard");
+  backCard.style.display = "none";
 
-  data?.cards.map((card) => {
-    const dealer = document.getElementById("left");
-    const img = document.createElement("img");
-    img.src = card?.image;
-    dealer.appendChild(img);
-    dealerPoint += cardValue(card);
-    document.getElementById(
-      "dealerPoints"
-    ).innerHTML = `Points : ${dealerPoint}`;
-  });
+  if (dealerPoint < 17 && userPoint <= 21) {
+    data?.cards.map((card) => {
+      const dealer = document.getElementById("left");
+      const img = document.createElement("img");
+      img.src = card?.image;
+      dealer.appendChild(img);
+      dealerPoint += cardValue(card);
+      document.getElementById(
+        "dealerPoints"
+      ).innerHTML = `Points : ${dealerPoint}`;
+    });
+    standUser();
+  }
   userWins();
 }
 
@@ -108,11 +112,16 @@ function userWins() {
     const user = localStorage.getItem("user");
     const msg = `${user} Bust!`;
     document.getElementById("winner").innerHTML = msg;
+  } else if (dealerPoint === userPoint) {
+    const msg = "It's tie !";
+    document.getElementById("winner").innerHTML = msg;
   } else if (dealerPoint <= 21 && dealerPoint > userPoint) {
     const msg = "Dealer Wins!";
     document.getElementById("winner").innerHTML = msg;
   } else {
-    const msg = "Dealer Bust!";
+    const msg = "Dealer Bust, Player Win! ";
     document.getElementById("winner").innerHTML = msg;
   }
 }
+
+function toggleAce() {}

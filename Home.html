@@ -8,12 +8,13 @@
   </head>
   <body>
     <div class="hero">
-      <h1>Black Jack</h1>
+      <h1>Black Jack 🃏</h1>
       <div class="desk">
         <div class="left">
           <h2>Dealer</h2>
           <div id="left">
             <img
+              id="backCard"
               src="https://www.deckofcardsapi.com/static/img/back.png"
               alt=""
             />
@@ -29,9 +30,9 @@
       <div class="option">
         <h1 id="winner"></h1>
         <div>
-          <button onclick="drawNewCard()" class="action">Draw</button>
-          <button onclick="stayUser()" class="action">Stay</button>
-          <button class="action">Toggle Ace</button>
+          <button onclick="drawNewCard()" class="action">Hit / Draw</button>
+          <button onclick="standUser()" class="action">Stand</button>
+          <button onclick="toggleAce()" class="action">Toggle Ace</button>
         </div>
       </div>
     </div>

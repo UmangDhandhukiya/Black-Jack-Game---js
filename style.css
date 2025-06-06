@@ -45,13 +45,6 @@ input {
   border-radius: 6px;
 }
 
-@media only screen and (max-width: 840px) {
-  .Main {
-    background-position: center;
-    justify-content: center;
-  }
-}
-
 .hero {
   height: 100vh;
   width: 100vw;
@@ -112,5 +105,39 @@ img {
 .action{
   padding: 12px 30px;
   font-size: 18px;
+  font-weight: 500;
   border-radius: 20px;
+}
+
+
+@media only screen and (max-width: 840px) {
+  .Main {
+    background-position: center;
+    justify-content: center;
+  }
+  .desk {
+    font-size: 18px;
+    flex-direction: column;
+  }
+  img{
+    height: 112px;
+    width: auto;
+    padding: 1px;
+  }
+  .left{
+    width: 100%;
+    gap: 4px;
+    padding: 0px;
+  }
+  .right{
+    width: 100%;
+    gap: 4px;
+    padding: 0px;
+  }
+  #winner{
+    font-size: 23px;
+  }
+  .action{
+    padding: 6px 15px;
+  }
 }
