@@ -7,11 +7,18 @@
     <link href="./style.css" rel="stylesheet" />
   </head>
   <body>
+    <!-- Main hero section for the Blackjack game -->
     <div class="hero">
       <h1>Black Jack 🃏</h1>
+
+      <!-- Game desk area: holds dealer and player sections -->
       <div class="desk">
+
+        <!-- Dealer section -->
         <div class="left">
           <h2>Dealer</h2>
+
+          <!-- Container for dealer's cards -->
           <div id="left">
             <img
               id="backCard"
@@ -19,24 +26,42 @@
               alt=""
             />
           </div>
+
+          <!-- Dealer's point display -->
           <h3 id="dealerPoints"></h3>
         </div>
+
+        <!-- Player section -->
         <div class="right">
+          <!-- Player's name -->
           <h2 id="user"></h2>
+
+          <!-- Container for player's cards -->
           <div id="userCard"></div>
+
+          <!-- Player's point display -->
           <h3 id="points"></h3>
         </div>
+
       </div>
+
+      <!-- Game controls and status -->
       <div class="option">
+        <!-- Display the winner -->
         <h1 id="winner"></h1>
+
+        <!-- Action buttons -->
         <div id="buttons">
           <button onclick="drawNewCard()" class="action">Hit / Draw</button>
           <button onclick="standUser()" class="action">Stand</button>
           <button onclick="toggleAce()" class="action">Toggle Ace</button>
         </div>
+
+        <!-- Restart game button -->
         <button class="action" id="restart" onclick="restartGame()">Restart Game</button>
       </div>
     </div>
+
     <script src="./index.js"></script>
   </body>
 </html>
